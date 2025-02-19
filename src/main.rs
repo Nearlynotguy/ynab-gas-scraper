@@ -1,8 +1,8 @@
 use std::env;
+use ynab_gas_scraper::run;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    let month = &args[0];
-    let year = &args[0];
+    run(&args);
 }
