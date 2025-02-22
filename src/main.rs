@@ -1,33 +1,51 @@
 use clap::Parser;
-use std::env;
+
+#[derive(Parser)]
+struct Cli {
+    month: Option<String>,
+    year: Option<String>,
+}
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
+    let args = Cli::parse();
 
     run(&args);
 }
 
-fn run<T>(args: T) {}
+fn run(args: &Cli) {}
 
 #[cfg(test)]
 mod test {
     use super::*;
+    pub trait TestCliValues {
+        fn empty() -> Self;
+        fn default() -> Self;
+    }
+
+    impl TestCliValues for Cli {
+        fn empty() -> Self {
+            Self {
+                month: None,
+                year: None,
+            }
+        }
+        fn default() -> Self {
+            Self {
+                month: Some("JAN".to_string()),
+                year: Some("2024".to_string()),
+            }
+        }
+    }
 
     #[test]
     fn run_with_no_input() {
-        let empty_test_input: &[String] = &[];
-        run(empty_test_input);
+        let empty_test_input = Cli::empty();
+        run(&empty_test_input);
     }
 
     #[test]
-    fn run_with_arbitrary_input() {
-        let test_input = 0;
-        run(test_input);
-    }
-
-    #[test]
-    fn run_with_string() {
-        let test_input = &"hello".to_string();
-        run(test_input);
+    fn run_with_default_input() {
+        let default_test_input = Cli::default();
+        run(&default_test_input);
     }
 }
