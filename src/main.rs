@@ -3,7 +3,6 @@ use clap::Parser;
 #[derive(Parser)]
 struct Cli {
     month: Option<String>,
-    year: Option<String>,
 }
 
 fn main() {
@@ -12,40 +11,28 @@ fn main() {
     run(&args);
 }
 
-fn run(args: &Cli) {}
+fn run(args: &Cli) {
+    let month_range = get_months(&args.month);
+}
 
 #[cfg(test)]
 mod test {
     use super::*;
-    pub trait TestCliValues {
-        fn empty() -> Self;
-        fn default() -> Self;
-    }
-
-    impl TestCliValues for Cli {
-        fn empty() -> Self {
-            Self {
-                month: None,
-                year: None,
-            }
-        }
-        fn default() -> Self {
-            Self {
-                month: Some("JAN".to_string()),
-                year: Some("2024".to_string()),
-            }
-        }
-    }
-
     #[test]
     fn run_with_no_input() {
-        let empty_test_input = Cli::empty();
+        let empty_test_input = Cli {
+            month: None,
+            // year: None,
+        };
         run(&empty_test_input);
     }
 
     #[test]
     fn run_with_default_input() {
-        let default_test_input = Cli::default();
+        let default_test_input = Cli {
+            month: Some("JAN".to_string()),
+            // year: Some("2024".to_string()),
+        };
         run(&default_test_input);
     }
 }

@@ -9,5 +9,14 @@ A tool that will calculate how much money I saved by getting gas at costco inste
   - OAuth
   - PII control
 - B+ Tree Structure
-- Loadballancer
+- Loadbalancer
 - Gas Price Analyzer
+- CLI
+  - **Features**
+    - *Default Behavior*
+      - Request difference for All Dates
+    - *Supported Behavior*
+      - Request difference over Date Range
+        - Month Range
+        - Year Range
+        - **Abort if requested is out of possible range**
