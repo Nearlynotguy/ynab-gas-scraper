@@ -11,9 +11,7 @@ fn main() {
     run(&args);
 }
 
-fn run(args: &Cli) {
-    let month_range = get_months(&args.month);
-}
+fn run(args: &Cli) {}
 
 #[cfg(test)]
 mod test {
