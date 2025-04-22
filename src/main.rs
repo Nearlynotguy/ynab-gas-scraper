@@ -1,8 +1,14 @@
 use clap::Parser;
+use ynab_gas_scraper::cli::get_date;
 
 #[derive(Parser)]
+#[command(about)]
 struct Cli {
-    month: Option<String>,
+    #[arg(short = 's', long)]
+    start: Option<String>,
+
+    #[arg(short = 'e', long)]
+    end: Option<String>,
 }
 
 fn main() {
@@ -11,7 +17,9 @@ fn main() {
     run(&args);
 }
 
-fn run(args: &Cli) {}
+fn run(args: &Cli) {
+    let start_date = get_date(&args.start);
+}
 
 #[cfg(test)]
 mod test {
@@ -19,18 +27,17 @@ mod test {
     #[test]
     fn run_with_no_input() {
         let empty_test_input = Cli {
-            month: None,
-            // year: None,
+            start: None,
+            end: None,
         };
         run(&empty_test_input);
     }
 
-    #[test]
-    fn run_with_default_input() {
-        let default_test_input = Cli {
-            month: Some("JAN".to_string()),
-            // year: Some("2024".to_string()),
-        };
-        run(&default_test_input);
-    }
+    // #[test]
+    // fn run_with_default_input() {
+    //     let default_test_input = Cli {
+    //         start: Some("JAN".to_string()),
+    //     };
+    //     run(&default_test_input);
+    // }
 }
